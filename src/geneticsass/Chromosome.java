@@ -5,7 +5,7 @@
  */
 package geneticsass;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -13,20 +13,26 @@ import java.util.ArrayList;
  */
 public class Chromosome {
 
-    int numOfItems;
+    static int numOfItems;
+    float lowerBound;
+    float upperBound;
     //this arraylist is parallel with gene(items) in main
-    ArrayList<Gene> genes;
+    boolean[] genes;
     int fitness;
 
-    public Chromosome(int newSize) {
-        numOfItems = newSize;
-        genes = new ArrayList<>(numOfItems);
+    public Chromosome() {
+        genes = new boolean[numOfItems];
+    }
 
+    public Chromosome clone() {
+        Chromosome c = new Chromosome();
+        c.genes = genes.clone();
+        return c;
     }
 
     @Override
     public String toString() {
         return "Chromosome{" + "numOfItems=" + numOfItems + ",\n "
-                + "genes=" + genes + ",\n fitness=" + fitness + '}';
+                + "genes=" + Arrays.toString(genes) + ",\n fitness=" + fitness + '}';
     }
 }

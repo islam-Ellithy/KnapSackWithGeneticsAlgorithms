@@ -25,14 +25,39 @@ public class GeneticsDriver implements Modification {
 
     @Override
     public ArrayList<PairOfChromosome> crossover(ArrayList<PairOfChromosome> chromosomes) {
+        //pc is point of crossover
+        //random number to check if I can do crossover or not
+        float r = 0, pc;
 
-        float r = 0;
+        PairOfChromosome pair;
         for (int i = 0; i < chromosomes.size(); i++) {
-            PairOfChromosome pair = chromosomes.get(i);
+
+            pc = KnapSackProblem.generateRandomNumber();
             r = KnapSackProblem.generateRandomNumber();
-            print(r + "");
+
+            print("R = " + r + "\n" + "Pc = " + pc);
+            //if true i will do crossover
+            if (r <= pc) {
+
+                pair = doCrossover(chromosomes.get(i), pc);
+                //update pair in list after do crossover on them
+                chromosomes.set(i, pair);
+            }
         }
         return chromosomes;
+    }
+
+    private PairOfChromosome doCrossover(PairOfChromosome pairOfChromosome, float pc) {
+
+        for (int i = 0; i < pairOfChromosome.firstChromo.genes.size(); i++) {
+            Gene firstGene = pairOfChromosome.firstChromo.genes.get(i);
+            Gene secondGene = pairOfChromosome.secondChromo.genes.get(i);
+            if (firstGene.lowerBound < pc) {
+                pairOfChromosome.firstChromo.genes.set(i, secondGene);
+                pairOfChromosome.secondChromo.genes.set(i, firstGene);
+            }
+        }
+        return pairOfChromosome;
     }
 
     @Override
@@ -55,4 +80,5 @@ public class GeneticsDriver implements Modification {
     private void print(String msg) {
         System.out.println(msg);
     }
+
 }

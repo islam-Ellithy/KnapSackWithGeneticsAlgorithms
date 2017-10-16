@@ -22,4 +22,6 @@ public interface Modification {
     ArrayList<PairOfChromosome> mutation(ArrayList<PairOfChromosome> chromosomes);
     
     ArrayList<Chromosome> replaceOldByNew(ArrayList<PairOfChromosome> chromosomes);
+    
+    void PrintPairOfChromosomes(PairOfChromosome chromosomes);
 }

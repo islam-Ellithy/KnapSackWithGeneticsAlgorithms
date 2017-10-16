@@ -15,12 +15,18 @@ public class Chromosome {
 
     int numOfItems;
     //this arraylist is parallel with gene(items) in main
-    ArrayList<Boolean> genes;
+    ArrayList<Gene> genes;
     int fitness;
-    float lowerBound;
-    float upperBound;
 
     public Chromosome(int newSize) {
         numOfItems = newSize;
+        genes = new ArrayList<>(numOfItems);
+
+    }
+
+    @Override
+    public String toString() {
+        return "Chromosome{" + "numOfItems=" + numOfItems + ",\n "
+                + "genes=" + genes + ",\n fitness=" + fitness + '}';
     }
 }

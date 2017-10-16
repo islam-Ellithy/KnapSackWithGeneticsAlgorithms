@@ -21,4 +21,11 @@ public class PairOfChromosome {
         this.firstChromo = firstChromo;
         this.secondChromo = secondChromo;
     }
+
+    @Override
+    public String toString() {
+        return "PairOfChromosome{\n" + "firstChromo=" + firstChromo
+                + ",\nsecondChromo=" + secondChromo + '}';
+    }
+
 }

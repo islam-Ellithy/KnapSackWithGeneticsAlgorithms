@@ -11,11 +11,20 @@ package geneticsass;
  */
 class Gene {
 
-    int weight;
-    int benefit;
+    float lowerBound;
+    float upperBound;
+    boolean geneExist;
 
-    Gene(int newWeight, int newBenefit) {
-        weight = newBenefit;
-        benefit = newBenefit;
+    Gene(float newLowerBound, float newUpperBound, boolean geneStatus) {
+        lowerBound = newLowerBound;
+        upperBound = newUpperBound;
+        geneExist = geneStatus;
     }
+
+    @Override
+    public String toString() {
+        return "Gene{" + "lowerBound=" + lowerBound + ",\nupperBound=" + upperBound + ","
+                + "\ngeneExist=" + geneExist + '}';
+    }
+
 }

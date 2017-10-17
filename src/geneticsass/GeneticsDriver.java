@@ -61,6 +61,7 @@ public class GeneticsDriver implements Modification {
         PairOfChromosome pair;
         for (int i = 0; i < chromosomes.size(); i++) {
 
+            //pc from 1 to len-1
             pc = (int) (Math.random() * (Chromosome.numOfItems - 2) + 1.5);
             r = (float) Math.random();
 
@@ -87,8 +88,36 @@ public class GeneticsDriver implements Modification {
     }
 
     @Override
-    public ArrayList<PairOfChromosome> mutation(ArrayList<PairOfChromosome> chromosomes) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Chromosome> mutation(ArrayList<PairOfChromosome> chromosomes) {
+        float rand;
+        float fixedValue = (float)0.1;
+        ArrayList<Chromosome> chromArray = new ArrayList<Chromosome>();
+        for(int i=0; i<chromosomes.size(); i++){          
+                    for(int k=0; k<chromosomes.get(i).firstChromo.genes.length; k++){
+                        rand =(float) Math.random();
+                        if(rand >= fixedValue){
+                            if(chromosomes.get(i).firstChromo.genes[k] == true)
+                                     chromosomes.get(i).firstChromo.genes[k] = false;
+                            else
+                                chromosomes.get(i).firstChromo.genes[k] = true;
+                        }
+                        
+                    }
+                     chromArray.add(chromosomes.get(i).firstChromo);
+                    for(int k=0; k<chromosomes.get(i).secondChromo.genes.length; k++){
+                        rand =(float) Math.random();
+                        if(rand >= fixedValue){
+                            if(chromosomes.get(i).secondChromo.genes[k] == true)
+                                     chromosomes.get(i).secondChromo.genes[k] = false;
+                            else
+                                chromosomes.get(i).secondChromo.genes[k] = true;
+                        }
+                        
+                    }
+                    chromArray.add(chromosomes.get(i).secondChromo);
+        }
+        
+        return chromArray;
     }
 
     @Override

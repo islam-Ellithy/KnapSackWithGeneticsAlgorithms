@@ -19,7 +19,7 @@ public interface Modification {
 
     ArrayList<PairOfChromosome> crossover(ArrayList<PairOfChromosome> chromosomes);
 
-    ArrayList<PairOfChromosome> mutation(ArrayList<PairOfChromosome> chromosomes);
+    ArrayList<Chromosome> mutation(ArrayList<PairOfChromosome> chromosomes);
 
     ArrayList<Chromosome> replaceOldByNew(ArrayList<PairOfChromosome> chromosomes);
 

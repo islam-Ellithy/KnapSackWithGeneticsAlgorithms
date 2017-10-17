@@ -6,6 +6,7 @@
 package geneticsass;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -17,44 +18,42 @@ public class GeneticsAss {
     static int sizeOfKnapSack;
     static ArrayList<Item> pairs = new ArrayList<>();
 
-    static ArrayList<PairOfChromosome> getDummyListOfPairOfChromosome() {
-        ArrayList<PairOfChromosome> chromosomes = new ArrayList<PairOfChromosome>();
-
-        PairOfChromosome poc = new PairOfChromosome();
-
-        poc.firstChromo = new Chromosome();
-
-        for (int i = 0; i < Chromosome.numOfItems; i++) {
-            poc.firstChromo.genes[i] = true;
-        }
-
-        poc.secondChromo = new Chromosome();
+    private static void getInput() {
+        Scanner keyBoard = new Scanner(System.in);
+        numOfTestCases = keyBoard.nextInt();
+        Chromosome.numOfItems = keyBoard.nextInt();
+        sizeOfKnapSack = keyBoard.nextInt();
 
         for (int i = 0; i < Chromosome.numOfItems; i++) {
-            poc.secondChromo.genes[i] = false;
+            pairs.add(new Item(keyBoard.nextInt(), keyBoard.nextInt()));
         }
-        chromosomes.add(poc);
-
-        return chromosomes;
     }
 
-    static void getInput() {
-        numOfTestCases = 1;
-        Chromosome.numOfItems = 3;
-        sizeOfKnapSack = 10;
+    private static ArrayList<Chromosome> generatePopulation(int size) {
+        ArrayList<Chromosome> population = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            population.add(generateChromosome());
+        }
 
-        pairs.add(new Item(4, 4));
-        pairs.add(new Item(7, 6));
-        pairs.add(new Item(5, 3));
+        return population;
+    }
+
+    private static Chromosome generateChromosome() {
+
+        Chromosome chromosome = new Chromosome();
+        for (int i = 0; i < chromosome.genes.length; i++) {
+            chromosome.genes[i]= Math.random()>0.5;
+        }
+        return chromosome;
     }
 
     public static void main(String[] args) {
         // TODO code application logic here   
         getInput();
         GeneticsDriver driver = new GeneticsDriver();
-        ArrayList<PairOfChromosome> crossoverResult = driver.crossover(getDummyListOfPairOfChromosome());
-
-        driver.PrintPairOfChromosomes(crossoverResult.get(0));
-
+        ArrayList<Chromosome> population = generatePopulation(10);
+        
+        
     }
+
 }

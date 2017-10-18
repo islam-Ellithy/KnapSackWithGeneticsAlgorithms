@@ -16,7 +16,7 @@ public class GeneticsAss {
 
     static int numOfTestCases;
     static int sizeOfKnapSack;
-    static ArrayList<Item> pairs = new ArrayList<>();
+    static ArrayList<Item> items = new ArrayList<>();
 
     private static void getInput() {
         Scanner keyBoard = new Scanner(System.in);
@@ -25,7 +25,7 @@ public class GeneticsAss {
         sizeOfKnapSack = keyBoard.nextInt();
 
         for (int i = 0; i < Chromosome.numOfItems; i++) {
-            pairs.add(new Item(keyBoard.nextInt(), keyBoard.nextInt()));
+            items.add(new Item(keyBoard.nextInt(), keyBoard.nextInt()));
         }
     }
 
@@ -42,7 +42,7 @@ public class GeneticsAss {
 
         Chromosome chromosome = new Chromosome();
         for (int i = 0; i < chromosome.genes.length; i++) {
-            chromosome.genes[i]= Math.random()>0.5;
+            chromosome.genes[i] = Math.random() > 0.5;
         }
         return chromosome;
     }
@@ -52,8 +52,11 @@ public class GeneticsAss {
         getInput();
         GeneticsDriver driver = new GeneticsDriver();
         ArrayList<Chromosome> population = generatePopulation(10);
-        
-        
+        for (Chromosome chromosome : population) {
+            if (chromosome.fitness>sizeOfKnapSack) {
+                chromosome.fitness = 1/chromosome.fitness;
+            }
+        }
     }
 
 }

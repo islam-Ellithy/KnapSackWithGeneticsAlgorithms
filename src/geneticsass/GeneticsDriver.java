@@ -14,17 +14,24 @@ import java.util.ArrayList;
 public class GeneticsDriver implements Modification {
 
     @Override
-    public int fitnessFunction(Chromosome chromosome) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void fitnessFunction(Chromosome chromosome, Item[] items) {
+        int fitness = 0;
+        for (int i = 0; i < chromosome.genes.length; i++) {
+            boolean bool = chromosome.genes[i];
+            if (bool) {
+                fitness += items[i].weight;
+            }
+        }
+        chromosome.fitness = fitness;
     }
 
     @Override
     public ArrayList<PairOfChromosome> selection(ArrayList<Chromosome> chromosomes) {
         ArrayList<PairOfChromosome> pairs = new ArrayList<>();
         int numOfSelections = 10;
+        
         int totalFitness = 0;
         for (Chromosome chromosome : chromosomes) {
-            chromosome.fitness = fitnessFunction(chromosome);
             totalFitness += chromosome.fitness;
         }
         float last = 0;
@@ -61,11 +68,10 @@ public class GeneticsDriver implements Modification {
         PairOfChromosome pair;
         for (int i = 0; i < chromosomes.size(); i++) {
 
-            //pc from 1 to len-1
+            //probability of crossover from 1 to len-1
             pc = (int) (Math.random() * (Chromosome.numOfItems - 2) + 1.5);
             r = (float) Math.random();
 
-            print("R = " + r + "\n" + "Pc = " + pc);
             //if true i will do crossover
             if (r <= probOfCross) {
 

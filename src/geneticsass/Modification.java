@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public interface Modification {
 
-    int fitnessFunction(Chromosome chromosome);
+    void fitnessFunction(Chromosome chromosome , Item[] items);
 
     ArrayList<PairOfChromosome> selection(ArrayList<Chromosome> chromosomes);
 

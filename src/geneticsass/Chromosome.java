@@ -18,7 +18,7 @@ public class Chromosome {
     float upperBound;
     //this arraylist is parallel with gene(items) in main
     boolean[] genes;
-    int fitness;
+    float fitness;
 
     public Chromosome() {
         genes = new boolean[numOfItems];

@@ -52,9 +52,40 @@ public class GeneticsAss {
         getInput();
         GeneticsDriver driver = new GeneticsDriver();
         ArrayList<Chromosome> population = generatePopulation(10);
-        for (Chromosome chromosome : population) {
-            if (chromosome.fitness>sizeOfKnapSack) {
-                chromosome.fitness = 1/chromosome.fitness;
+        for (int i = 0; i < numOfTestCases; i++) {
+            ArrayList<PairOfChromosome> pairs;
+            for (Chromosome chromosome : population) {
+                driver.fitnessFunction(chromosome, items, sizeOfKnapSack);
+            }
+            pairs = driver.selection(population);
+            pairs = driver.crossover(pairs);
+            population = driver.mutation(pairs);
+            for (Chromosome chromosome : population) {
+                driver.fitnessFunction(chromosome, items, sizeOfKnapSack);
+
+            }
+            Chromosome currentBest = population.get(0);
+            float currentBestFitness = population.get(0).fitness;
+            for (Chromosome chromosome : population) {
+                if (chromosome.fitness > currentBestFitness) {
+                    currentBestFitness = chromosome.fitness;
+                    currentBest = chromosome;
+                }
+            }
+            int benefit = 0;
+            for (int j = 0; j < Chromosome.numOfItems; j++) {
+                benefit += currentBest.genes[j] ? items.get(j).benefit : 0;
+            }
+            System.out.println("case " + i + ": " + benefit);
+            int item = currentBest.genes[0] == true ? 1 : 0;
+            for (int j = 1; j < Chromosome.numOfItems; j++) {
+                item += currentBest.genes[j] == true ? 1 : 0;
+            }
+            System.out.println(item);
+            for (int j = 0; j < Chromosome.numOfItems; j++) {
+                if (currentBest.genes[j] == true) {
+                    System.out.println(items.get(j).weight + " " + items.get(j).benefit);
+                }
             }
         }
     }

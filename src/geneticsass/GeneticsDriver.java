@@ -14,30 +14,34 @@ import java.util.ArrayList;
 public class GeneticsDriver implements Modification {
 
     @Override
-    public void fitnessFunction(Chromosome chromosome, Item[] items) {
-        int fitness = 0;
+    public void fitnessFunction(Chromosome chromosome, ArrayList<Item> items, int size) {
+        float fitness = 0;
         for (int i = 0; i < chromosome.genes.length; i++) {
             boolean bool = chromosome.genes[i];
             if (bool) {
-                fitness += items[i].weight;
+                fitness += items.get(i).weight;
             }
         }
+        if (fitness > size) {
+            fitness = 1.0f / fitness;
+        }
         chromosome.fitness = fitness;
+       // print("fit " + chromosome.fitness);
     }
 
     @Override
     public ArrayList<PairOfChromosome> selection(ArrayList<Chromosome> chromosomes) {
         ArrayList<PairOfChromosome> pairs = new ArrayList<>();
         int numOfSelections = 10;
-        
-        int totalFitness = 0;
+
+        float totalFitness = 0;
         for (Chromosome chromosome : chromosomes) {
             totalFitness += chromosome.fitness;
         }
         float last = 0;
         for (Chromosome chromosome : chromosomes) {
             chromosome.lowerBound = last;
-            chromosome.upperBound = last += ((float) chromosome.fitness / (float) totalFitness);
+            chromosome.upperBound = last += (chromosome.fitness / totalFitness);
         }
         for (int i = 0; i < numOfSelections; i++) {
             double rand = Math.random();

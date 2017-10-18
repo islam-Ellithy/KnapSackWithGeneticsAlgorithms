@@ -15,7 +15,7 @@ public class Item {
     int benefit;
 
     Item(int newWeight, int newBenefit) {
-        weight = newBenefit;
+        weight = newWeight;
         benefit = newBenefit;
     }
 
